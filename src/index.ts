@@ -13,7 +13,7 @@ export const logger = new Logger({
 
 const client = new Client({
   logger,
-  intents: [GatewayIntentBits.MessageContent],
+  intents: [GatewayIntentBits.MessageContent, GatewayIntentBits.Guilds],
 })
 
 client.start()
