@@ -14,18 +14,18 @@
   "packageManager": "pnpm@10.14.0+sha1.85759954ad817d248e2fed7f789f046a24f0327d",
   "dependencies": {
     "@pikokr/command.ts": "^5.8.0",
-    "@swc/core": "^1.13.3",
     "cron": "^4.3.3",
     "discord.js": "^14.21.0",
     "neis.ts": "^1.3.0",
     "picocolors": "^1.1.1",
-    "ts-node": "^10.9.2",
     "tslog": "^4.9.3",
     "valibot": "^1.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.0",
+    "@swc/core": "^1.13.3",
     "@types/node": "^24.2.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }
 }
