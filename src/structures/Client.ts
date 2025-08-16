@@ -28,7 +28,10 @@ export default class Client extends CommandClient {
       this.onClientReady(client),
     )
 
-    this.discord.on(Events.Debug, (msg) => this.logger.debug(msg))
+    const dJSLogger = this.logger.getSubLogger({
+      name: 'discord.js',
+    })
+    this.discord.on(Events.Debug, (msg) => dJSLogger.debug(msg))
   }
 
   async setup() {

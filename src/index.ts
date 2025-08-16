@@ -3,7 +3,7 @@ import { Logger } from 'tslog'
 import { config } from './config'
 import Client from './structures/Client'
 
-const logger = new Logger({
+export const logger = new Logger({
   name: 'Notifier',
   prettyLogTemplate:
     '{{yyyy}}.{{mm}}.{{dd}} {{hh}}:{{MM}}:{{ss}}:{{ms}}\t{{logLevelName}}\t[{{name}}]\t',
