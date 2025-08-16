@@ -7,7 +7,7 @@
       "recommended": true,
       "style": {
         "useImportType": {
-          "level": "warn",
+          "level": "info", // https://biomejs.dev/linter/rules/use-import-type/#caveat-with-typescript-experimental-decorators
           "fix": "none"
         },
         "noNonNullAssertion": "warn"
