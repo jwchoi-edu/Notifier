@@ -4,19 +4,24 @@ import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
   ChatInputCommandInteraction,
-  codeBlock,
   MessageFlags,
   type TextChannel,
 } from 'discord.js'
-import { Neis } from 'neis.ts'
+import { DataNotFoundError, Neis } from 'neis.ts'
 import { logger } from '..'
+import { ownerOnly } from '../checks/owner'
 import { config } from '../config'
+import { Daily } from '../embeds/Notify'
+import Calendar from '../structures/Calendar'
 import type Client from '../structures/Client'
 
-class NeisExt extends Extension<Client> {
+class Notify extends Extension<Client> {
   private readonly neis = new Neis({
     logger: logger.getSubLogger({ name: 'NEIS' }),
     key: config.neisKey,
+  })
+  private readonly calendar = new Calendar({
+    logger,
   })
 
   constructor() {
@@ -25,20 +30,27 @@ class NeisExt extends Extension<Client> {
     CronJob.from({
       cronTime: '0 6 * * 1-5', // 6:00 on weekday
       timeZone: 'Asia/Seoul',
-      onTick: () => this.sendNotification(new Date()),
+      onTick: () => this.sendDaily(new Date()),
       start: true,
     })
   }
 
-  async sendNotification(date: Date) {
+  async sendDaily(date: Date) {
     const school = await this.neis.getSchoolOne({
       SCHUL_NM: '중동고등학교',
     })
-    const meal = await this.neis.getMealOne({
-      ATPT_OFCDC_SC_CODE: school.ATPT_OFCDC_SC_CODE,
-      SD_SCHUL_CODE: school.SD_SCHUL_CODE,
-      MLSV_YMD: date.toISOString().slice(0, 10).replace(/-/g, ''),
-    })
+    const meals = await this.neis
+      .getMeal({
+        ATPT_OFCDC_SC_CODE: school.ATPT_OFCDC_SC_CODE,
+        SD_SCHUL_CODE: school.SD_SCHUL_CODE,
+        MLSV_YMD: date.toISOString().slice(0, 10).replace(/-/g, ''),
+      })
+      .catch((err) => {
+        if (err instanceof DataNotFoundError) return null
+        else throw err
+      })
+
+    this.logger.debug('meals:', meals)
 
     const channel = (await this.commandClient.discord.channels.fetch(
       config.channel,
@@ -49,14 +61,29 @@ class NeisExt extends Extension<Client> {
     }
 
     await channel.send({
-      content: codeBlock('json', JSON.stringify(meal, null, 2)),
+      embeds: [
+        Daily.meal({
+          school: school.SCHUL_NM,
+          today: date,
+          meals: meals,
+        }),
+        Daily.event({
+          school: school.SCHUL_NM,
+          grade: 1,
+          cls: 11,
+          today: date,
+          events: this.calendar.getEventsForDate(date),
+          ddays: this.calendar.getDDays(date),
+        }),
+      ],
     })
   }
 
+  @ownerOnly
   @applicationCommand({
     type: ApplicationCommandType.ChatInput,
     name: 'test',
-    description: 'Send a test notification',
+    description: '[OWNER] Send a test notification',
   })
   async test(
     i: ChatInputCommandInteraction,
@@ -79,11 +106,11 @@ class NeisExt extends Extension<Client> {
       return
     }
 
-    await this.sendNotification(parsedDate)
+    await this.sendDaily(parsedDate)
     i.editReply({
       content: `Test notification sent for ${dateYMD}.`,
     })
   }
 }
 
-export const setup = async () => new NeisExt()
+export const setup = async () => new Notify()

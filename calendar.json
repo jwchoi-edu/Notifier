@@ -1,0 +1,151 @@
+{
+  "events": [
+    {
+      "type": "교내 프로그램",
+      "name": "자기주도 학습실 오리엔테이션",
+      "start_date": "2025-08-19",
+      "end_date": "2025-08-19",
+      "D-Day": false
+    },
+    {
+      "type": "교내 일정",
+      "name": "동아리",
+      "start_date": "2025-08-20",
+      "end_date": "2025-08-20",
+      "D-Day": false
+    },
+    {
+      "type": "시험",
+      "name": "9월 전국연합학력평가",
+      "start_date": "2025-09-03",
+      "end_date": "2025-09-03",
+      "D-Day": true
+    },
+    {
+      "type": "교내 일정",
+      "name": "선택과목 수강신청",
+      "start_date": "2025-09-05",
+      "end_date": "2025-09-11",
+      "D-Day": false
+    },
+    {
+      "type": "교내 일정",
+      "name": "동아리",
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-10",
+      "D-Day": false
+    },
+    {
+      "type": "시험",
+      "name": "2학기 중간고사",
+      "start_date": "2025-09-23",
+      "end_date": "2025-09-29",
+      "D-Day": true
+    },
+    {
+      "type": "교내 일정",
+      "name": "동아리",
+      "start_date": "2025-10-01",
+      "end_date": "2025-10-01",
+      "D-Day": false
+    },
+    {
+      "type": "시험",
+      "name": "11월 전국연합학력평가",
+      "start_date": "2025-10-12",
+      "end_date": "2025-10-12",
+      "D-Day": true
+    },
+    {
+      "type": "교내 프로그램",
+      "name": "아침 책 산책 마감",
+      "start_date": "2025-10-17",
+      "end_date": "2025-10-17",
+      "D-Day": false
+    },
+    {
+      "type": "교내 일정",
+      "name": "수학여행",
+      "start_date": "2025-10-22",
+      "end_date": "2025-10-24",
+      "D-Day": true
+    },
+    {
+      "type": "교내 일정",
+      "name": "동아리",
+      "start_date": "2025-10-29",
+      "end_date": "2025-10-29",
+      "D-Day": false
+    },
+    {
+      "type": "교내 일정",
+      "name": "수강신청 변경 기한",
+      "start_date": "2025-11-17",
+      "end_date": "2025-11-24",
+      "D-Day": false
+    },
+    {
+      "type": "교내 일정",
+      "name": "동아리",
+      "start_date": "2025-11-26",
+      "end_date": "2025-11-26",
+      "D-Day": false
+    },
+    {
+      "type": "교내 일정",
+      "name": "학생부 작성 기준일",
+      "start_date": "2025-11-28",
+      "end_date": "2025-11-28",
+      "D-Day": false
+    },
+    {
+      "type": "시험",
+      "name": "2학기 기말고사",
+      "start_date": "2025-12-04",
+      "end_date": "2025-12-10",
+      "D-Day": true
+    },
+    {
+      "type": "교내 프로그램",
+      "name": "자기주도 학습실 종료",
+      "start_date": "2025-12-16",
+      "end_date": "2025-12-16",
+      "D-Day": false
+    },
+    {
+      "type": "교내 일정",
+      "name": "동아리",
+      "start_date": "2025-12-17",
+      "end_date": "2025-12-17",
+      "D-Day": false
+    },
+    {
+      "type": "교내 일정",
+      "name": "백농축전",
+      "start_date": "2025-12-23",
+      "end_date": "2025-12-24",
+      "D-Day": false
+    },
+    {
+      "type": "교내 일정",
+      "name": "방학식",
+      "start_date": "2025-12-31",
+      "end_date": "2025-12-31",
+      "D-Day": false
+    },
+    {
+      "type": "교내 일정",
+      "name": "개학식",
+      "start_date": "2026-02-02",
+      "end_date": "2026-02-02",
+      "D-Day": false
+    },
+    {
+      "type": "교내 일정",
+      "name": "종업식",
+      "start_date": "2026-02-06",
+      "end_date": "2026-02-06",
+      "D-Day": false
+    }
+  ]
+}
