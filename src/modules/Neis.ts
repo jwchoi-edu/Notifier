@@ -9,9 +9,9 @@ import {
   type TextChannel,
 } from 'discord.js'
 import { Neis } from 'neis.ts'
+import { logger } from '..'
 import { config } from '../config'
 import type Client from '../structures/Client'
-import { logger } from '..'
 
 class NeisExt extends Extension<Client> {
   private readonly neis = new Neis({

@@ -6,6 +6,6 @@
     "outDir": "dist",
     "target": "es2024",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": true
   }
 }
