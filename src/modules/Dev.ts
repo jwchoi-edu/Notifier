@@ -66,7 +66,7 @@ class Dev extends Extension<CustomClient> {
   })
   async reload(i: ChatInputCommandInteraction) {
     await i.deferReply({
-      flags: MessageFlags.Ephemeral
+      flags: MessageFlags.Ephemeral,
     })
 
     const modules = await this.commandClient.registry.reloadModules()
@@ -84,7 +84,7 @@ class Dev extends Extension<CustomClient> {
   })
   async sync(i: ChatInputCommandInteraction) {
     await i.deferReply({
-      flags: MessageFlags.Ephemeral
+      flags: MessageFlags.Ephemeral,
     })
 
     await this.commandClient.getApplicationCommandsExtension()?.sync()
