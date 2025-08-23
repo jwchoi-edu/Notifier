@@ -7,5 +7,8 @@
     "target": "es2024",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
+  },
+  "ts-node": {
+    "swc": true
   }
 }

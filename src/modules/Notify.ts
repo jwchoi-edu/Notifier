@@ -11,7 +11,7 @@ import { DataNotFoundError, Neis } from 'neis.ts'
 import { logger } from '..'
 import { ownerOnly } from '../checks/owner'
 import { config } from '../config'
-import { Daily } from '../embeds/Notify'
+import { Daily, Weekly } from '../embeds/Notify'
 import Calendar from '../structures/Calendar'
 import type Client from '../structures/Client'
 
@@ -19,6 +19,7 @@ class Notify extends Extension<Client> {
   private readonly neis = new Neis({
     logger: logger.getSubLogger({ name: 'NEIS' }),
     key: config.neisKey,
+    timeout: 20000,
   })
   private readonly calendar = new Calendar({
     logger,
@@ -31,6 +32,24 @@ class Notify extends Extension<Client> {
       cronTime: '0 6 * * 1-5', // 6:00 on weekday
       timeZone: 'Asia/Seoul',
       onTick: () => this.sendDaily(new Date()),
+      start: true,
+    })
+
+    CronJob.from({
+      cronTime: '0 22 * * 0-5', // 22:00 on weekday + sunday
+      timeZone: 'Asia/Seoul',
+      onTick: () => {
+        const date = new Date()
+        date.setDate(date.getDate() + 1)
+        this.sendDaily(date)
+      },
+      start: true,
+    })
+
+    CronJob.from({
+      cronTime: '0 8 * * 6', // 08:00 on saturday
+      timeZone: 'Asia/Seoul',
+      onTick: () => this.sendWeekly(new Date()),
       start: true,
     })
   }
@@ -79,6 +98,29 @@ class Notify extends Extension<Client> {
     })
   }
 
+  async sendWeekly(date: Date) {
+    const channel = (await this.commandClient.discord.channels.fetch(
+      config.channel,
+    )) as TextChannel
+    if (!channel || !channel.isSendable()) {
+      this.logger.warn(`Channel ${config.channel} not found`)
+      return
+    }
+
+    await channel.send({
+      embeds: [
+        Weekly.event({
+          school: '중동고등학교',
+          grade: 1,
+          cls: 11,
+          today: date,
+          events: this.calendar.getEventsForWeekly(date),
+          ddays: this.calendar.getDDays(date),
+        }),
+      ],
+    })
+  }
+
   @ownerOnly
   @applicationCommand({
     type: ApplicationCommandType.ChatInput,
@@ -107,6 +149,7 @@ class Notify extends Extension<Client> {
     }
 
     await this.sendDaily(parsedDate)
+    await this.sendWeekly(parsedDate)
     i.editReply({
       content: `Test notification sent for ${dateYMD}.`,
     })

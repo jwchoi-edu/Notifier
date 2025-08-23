@@ -1,3 +1,4 @@
+import { execSync } from 'node:child_process'
 import { join } from 'node:path'
 import { CommandClient } from '@pikokr/command.ts'
 import type { GatewayIntentBits, Partials } from 'discord.js'
@@ -5,7 +6,6 @@ import { ActivityType, Client as DJSClient, Events } from 'discord.js'
 import { green } from 'picocolors'
 import type { Logger } from 'tslog'
 import { config } from '../config'
-import { execSync } from 'node:child_process'
 
 export default class Client extends CommandClient {
   readonly startedAt = Date.now()

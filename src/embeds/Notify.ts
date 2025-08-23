@@ -2,7 +2,7 @@ import type { MealServiceDietInfoResponse } from 'neis.ts'
 import { Colors } from '../constants'
 import type { CalendarEvent, DDay } from '../structures/Calendar'
 import CustomEmbed from '../structures/Embed'
-import { calculateDDay } from '../utils/time'
+import { calculateDDay, formatDate, formatDatePretty } from '../utils/time'
 
 const RegExps = {
   AllergicCodes: /\((1?\d+)(\.1?\d+)*\)$/,
@@ -19,12 +19,12 @@ export const Daily = {
     const { school, today, meals } = value
     if (!meals)
       return new CustomEmbed({
-        title: `${school} - ${today.toISOString().slice(0, 10)} 급식`,
+        title: `${school} - ${formatDate(today)} 급식`,
         description: '급식 데이터가 없습니다.',
         color: Colors.Red,
       })
     return new CustomEmbed({
-      title: `${school} - ${today.toISOString().slice(0, 10)} 급식`,
+      title: `${school} - ${formatDate(today)} 급식`,
     }).addFields(
       meals
         ? meals.map((meal) => ({
@@ -58,7 +58,7 @@ export const Daily = {
     })
 
     const embed = new CustomEmbed({
-      title: `${school} ${grade}학년 ${cls}반 - ${today.toISOString().slice(0, 10)} 일정`,
+      title: `${school} ${grade}학년 ${cls}반 - ${formatDate(today)} 일정`,
     })
     if (Object.entries(eventPerType).length > 0)
       embed.addFields(
@@ -68,6 +68,42 @@ export const Daily = {
         })),
       )
     else embed.setDescription('일정 데이터가 없습니다.')
+
+    return embed.addFields({
+      name: 'D-Day',
+      value: ddays
+        .map(
+          (dday) =>
+            `${dday.name} **D-${calculateDDay(dday.date, today) || 'DAY'}**`,
+        )
+        .join('\n'),
+    })
+  },
+}
+
+export const Weekly = {
+  event: (value: {
+    school: string
+    grade: number
+    cls: number
+    today: Date
+    events: Record<string, CalendarEvent[]>
+    ddays: DDay[]
+  }) => {
+    const { school, grade, cls, today, events, ddays } = value
+
+    const embed = new CustomEmbed({
+      title: `${school} ${grade}학년 ${cls}반 - ${formatDate(today)} 주간 일정`,
+    })
+
+    if (Object.entries(events).length > 0) {
+      embed.addFields(
+        Object.entries(events).map(([date, events]) => ({
+          name: formatDatePretty(new Date(date)),
+          value: events.map((event) => event.name).join('\n'),
+        })),
+      )
+    } else embed.setDescription('일정 데이터가 없습니다.')
 
     return embed.addFields({
       name: 'D-Day',

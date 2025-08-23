@@ -1,5 +1,6 @@
 import type { Logger } from 'tslog'
 import * as v from 'valibot'
+import { formatDate } from '../utils/time'
 
 const CalendarJSON = v.object({
   events: v.array(
@@ -31,8 +32,8 @@ export type DDay = {
 }
 
 export default class Calendar {
-  private readonly dates: Record<string, CalendarEvent[]> = {}
-  private readonly dDayEvents: DDay[] = []
+  private dates: Record<string, CalendarEvent[]> = {}
+  private dDayEvents: DDay[] = []
   private readonly logger: Logger<unknown>
 
   constructor(config: {
@@ -42,15 +43,20 @@ export default class Calendar {
       name: 'Calendar',
     })
 
-    for (const event of calendarJSON.events) {
-      if (event['D-Day']) {
+    this.loadEvents()
+  }
+
+  loadEvents() {
+    const data = v.parse(CalendarJSON, require('../../calendar.json'))
+    for (const event of data.events) {
+      if (event['D-Day'])
         this.dDayEvents.push({ date: event.start_date, name: event.name })
-      }
 
       const current = new Date(event.start_date)
       const end = new Date(event.end_date)
+
       while (current <= end) {
-        const key = current.toISOString().split('T')[0]
+        const key = formatDate(current)
         if (!this.dates[key]) this.dates[key] = []
         this.dates[key].push({
           type: event.type,
@@ -61,14 +67,36 @@ export default class Calendar {
       }
     }
 
-    this.logger.debug('Calendar initialized', {
+    this.logger.debug('Event loaded', {
       dates: this.dates,
       dDayEvents: this.dDayEvents,
     })
   }
 
-  getEventsForDate(date: Date): CalendarEvent[] {
-    return this.dates[date.toISOString().split('T')[0]] || []
+  getEventsForDate(date: Date) {
+    return this.dates[formatDate(date)] || []
+  }
+
+  getEventsForWeekly(date: Date) {
+    // runs on saturday, returns every events in the next weekday
+    const nextSaturday = new Date(date)
+    nextSaturday.setDate(date.getDate() + 7)
+
+    const result: Record<string, CalendarEvent[]> = {}
+    for (
+      let cur = new Date(date);
+      cur < nextSaturday;
+      cur.setDate(cur.getDate() + 1)
+    ) {
+      this.logger.debug('Checking date:', cur)
+      const currentDate = new Date(cur)
+      const events = this.getEventsForDate(currentDate)
+      if (events.length > 0) result[formatDate(currentDate)] = events
+    }
+
+    this.logger.debug('weekly events:', result)
+
+    return result
   }
 
   getDDays(date: Date): DDay[] {
