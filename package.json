@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "lint": "biome check",
-    "dev": "NODE_ENV=development ts-node src",
-    "build": "tsc",
+    "dev": "NODE_ENV=development node -r @swc-node/register src",
+    "build": "swc src -d dist --strip-leading-paths",
     "start": "node dist/index.js"
   },
   "keywords": [],
@@ -23,9 +23,9 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.0",
-    "@swc/core": "^1.13.3",
+    "@swc-node/register": "^1.11.1",
+    "@swc/cli": "^0.7.8",
     "@types/node": "^24.2.1",
-    "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }
 }
