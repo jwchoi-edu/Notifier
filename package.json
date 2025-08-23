@@ -10,7 +10,7 @@
     "start": "node dist/index.js"
   },
   "keywords": [],
-  "license": "ISC",
+  "license": "GPL-3.0-only",
   "packageManager": "pnpm@10.14.0+sha1.85759954ad817d248e2fed7f789f046a24f0327d",
   "dependencies": {
     "@pikokr/command.ts": "^5.8.0",
