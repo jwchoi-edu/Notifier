@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "biome check",
     "dev": "NODE_ENV=development node -r @swc-node/register src",
-    "build": "node scripts/rm.mjs dist && swc src -d dist --strip-leading-paths",
+    "build": "node scripts/rm.mjs dist && tsc",
     "start": "node dist/index.js"
   },
   "keywords": [],
@@ -24,7 +24,6 @@
   "devDependencies": {
     "@biomejs/biome": "^2.2.0",
     "@swc-node/register": "^1.11.1",
-    "@swc/cli": "^0.7.8",
     "@types/node": "^24.2.1",
     "typescript": "^5.9.2"
   }
