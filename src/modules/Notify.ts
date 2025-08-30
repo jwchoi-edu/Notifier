@@ -31,7 +31,10 @@ class Notify extends Extension<Client> {
     CronJob.from({
       cronTime: '0 6 * * 1-5', // 6:00 on weekday
       timeZone: 'Asia/Seoul',
-      onTick: () => this.sendDaily(new Date()),
+      onTick: () => {
+        this.logger.info('Sending 0 6 * * 1-5 notification')
+        this.sendDaily(new Date())
+      },
       start: true,
     })
 
@@ -39,6 +42,7 @@ class Notify extends Extension<Client> {
       cronTime: '0 22 * * 0-5', // 22:00 on weekday + sunday
       timeZone: 'Asia/Seoul',
       onTick: () => {
+        this.logger.info('Sending 0 22 * * 0-5 notification')
         const date = new Date()
         date.setDate(date.getDate() + 1)
         this.sendDaily(date)
@@ -49,7 +53,10 @@ class Notify extends Extension<Client> {
     CronJob.from({
       cronTime: '0 8 * * 6', // 08:00 on saturday
       timeZone: 'Asia/Seoul',
-      onTick: () => this.sendWeekly(new Date()),
+      onTick: () => {
+        this.logger.info('Sending 0 8 * * 6 notification')
+        this.sendWeekly(new Date())
+      },
       start: true,
     })
   }
