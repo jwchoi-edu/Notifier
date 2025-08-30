@@ -23,13 +23,6 @@
     },
     {
       "type": "교내 일정",
-      "name": "선택과목 수강신청",
-      "start_date": "2025-09-05",
-      "end_date": "2025-09-11",
-      "D-Day": false
-    },
-    {
-      "type": "교내 일정",
       "name": "동아리",
       "start_date": "2025-09-10",
       "end_date": "2025-09-10",
@@ -50,11 +43,11 @@
       "D-Day": false
     },
     {
-      "type": "시험",
-      "name": "11월 전국연합학력평가",
-      "start_date": "2025-10-12",
-      "end_date": "2025-10-12",
-      "D-Day": true
+      "type": "교내 일정",
+      "name": "선택과목 수강신청",
+      "start_date": "2025-10-13",
+      "end_date": "2025-10-20",
+      "D-Day": false
     },
     {
       "type": "교내 프로그램",
@@ -62,6 +55,13 @@
       "start_date": "2025-10-17",
       "end_date": "2025-10-17",
       "D-Day": false
+    },
+    {
+      "type": "시험",
+      "name": "10월 전국연합학력평가",
+      "start_date": "2025-10-14",
+      "end_date": "2025-10-14",
+      "D-Day": true
     },
     {
       "type": "교내 일정",
