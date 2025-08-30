@@ -1,0 +1,6 @@
+{
+  "token": "your-token-here",
+  "neisKey": "your-neis-key-here",
+  "channel": "your-channel-id-here",
+  "guilds": ["your-guild-id-here"]
+}
