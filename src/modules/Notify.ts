@@ -14,6 +14,7 @@ import { config } from '../config'
 import { Daily, Weekly } from '../embeds/Notify'
 import Calendar from '../structures/Calendar'
 import type Client from '../structures/Client'
+import { getKST } from '../utils/time'
 
 class Notify extends Extension<Client> {
   private readonly neis = new Neis({
@@ -33,7 +34,7 @@ class Notify extends Extension<Client> {
       timeZone: 'Asia/Seoul',
       onTick: () => {
         this.logger.info('Sending 0 6 * * 1-5 notification')
-        this.sendDaily(new Date())
+        this.sendDaily(getKST())
       },
       start: true,
     })
@@ -43,7 +44,7 @@ class Notify extends Extension<Client> {
       timeZone: 'Asia/Seoul',
       onTick: () => {
         this.logger.info('Sending 0 22 * * 0-5 notification')
-        const date = new Date()
+        const date = getKST()
         date.setDate(date.getDate() + 1)
         this.sendDaily(date)
       },
@@ -55,7 +56,7 @@ class Notify extends Extension<Client> {
       timeZone: 'Asia/Seoul',
       onTick: () => {
         this.logger.info('Sending 0 8 * * 6 notification')
-        this.sendWeekly(new Date())
+        this.sendWeekly(getKST())
       },
       start: true,
     })
