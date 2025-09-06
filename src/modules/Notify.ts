@@ -40,10 +40,10 @@ class Notify extends Extension<Client> {
     })
 
     CronJob.from({
-      cronTime: '0 22 * * 0-5', // 22:00 on weekday + sunday
+      cronTime: '0 22 * * 0-5', // 22:00 on sun-thurs
       timeZone: 'Asia/Seoul',
       onTick: () => {
-        this.logger.info('Sending 0 22 * * 0-5 notification')
+        this.logger.info('Sending 0 22 * * 0-4 notification')
         const date = getKST()
         date.setDate(date.getDate() + 1)
         this.sendDaily(date)
