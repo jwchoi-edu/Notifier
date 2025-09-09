@@ -1,0 +1,36 @@
+{
+  "$id": "calendar.schema.json",
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "title": "Calendar Schema",
+  "description": "A calendar for school events",
+  "type": "object",
+  "properties": {
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "D-Day": {
+            "type": "boolean"
+          }
+        },
+        "required": ["type", "name", "start_date", "end_date", "D-Day"]
+      }
+    }
+  },
+  "required": ["events"]
+}

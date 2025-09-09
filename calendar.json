@@ -1,4 +1,5 @@
 {
+  "$schema": "calendar.schema.json",
   "events": [
     {
       "type": "교내 프로그램",
