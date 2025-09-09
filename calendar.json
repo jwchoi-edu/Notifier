@@ -36,6 +36,13 @@
       "D-Day": false
     },
     {
+      "type": "수행평가",
+      "name": "수학 수행평가",
+      "start_date": "2025-09-18",
+      "end_date": "2025-09-19",
+      "D-Day": false
+    },
+    {
       "type": "시험",
       "name": "2학기 중간고사",
       "start_date": "2025-09-23",
