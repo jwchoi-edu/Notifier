@@ -58,6 +58,13 @@
       "D-Day": false
     },
     {
+      "type": "수행평가",
+      "name": "음악 가창 수행평가",
+      "start_date": "2025-10-13",
+      "end_date": "2025-10-13",
+      "D-Day": false
+    },
+    {
       "type": "교내 일정",
       "name": "선택과목 수강신청",
       "start_date": "2025-10-13",
